@@ -1,15 +1,39 @@
 import React from 'react';
-import './App.css';
-import CatalogMovies from "./containers/CatalogMovies/CatalogMovies";
+import styled from 'styled-components'
+import Dashboard from "./components/Dashboard";
+import SearchMovies from './components/SearchMovies'
+import Title from './components/Title'
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+} from "react-router-dom";
+import NavigationMenu from "./components/NavigationMenu";
 
-const imageDomainSource = 'http://image.tmdb.org/t/p/w342/';
-const popularMoviesResource = "https://api.themoviedb.org/3/movie/popular?api_key=2d2b4585cf1acf76d22f4e95451fd75e";
+
+const MovieAppWrapper = styled.div`
+    a {
+        text-decoration: none;
+    }
+    padding: 0px;
+    margin: 0px;
+`
 
 function App() {
   return (
-    <div className="App">
-        <CatalogMovies url={popularMoviesResource} imageDomain={imageDomainSource}/>
-    </div>
+      <MovieAppWrapper>
+          <Router>
+              <NavigationMenu />
+              <Switch>
+                  <Route path="/" exact component={Dashboard} />
+                  <Route path="/title/" component={Title} />
+                  <Route path="/search" component={SearchMovies} />
+                  <Route path="*">
+                      <div>Not Found</div>
+                  </Route>
+              </Switch>
+          </Router>
+      </MovieAppWrapper>
   );
 }
 

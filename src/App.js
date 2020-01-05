@@ -12,11 +12,10 @@ import NavigationMenu from "./components/NavigationMenu";
 
 
 const MovieAppWrapper = styled.div`
+    background: #424242;
     a {
         text-decoration: none;
     }
-    padding: 0px;
-    margin: 0px;
 `
 
 function App() {

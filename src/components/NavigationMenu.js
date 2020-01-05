@@ -9,12 +9,12 @@ const MenuWrapper = styled.div`
   background: #544f4c;
   display: flex;
   flex: 1 0 auto;
-  padding: 10px 20px;
+  padding: 20px 20px;
 `;
 
 const menuList = ['', 'Search']
 
-function NavigationMenu() {
+export default function NavigationMenu() {
     return (
         <MenuWrapper>
             {menuList.map((menuLabel, index) =>
@@ -33,7 +33,28 @@ function NavigationMenu() {
 }
 
 const MenuLink = styled.div`
-    background: ${props => props.match ? "white" : ""};
+    a {
+        color: ${props => props.match ? '#fff' : '#f78f19'};
+        text-transform: uppercase;
+        margin-right: 20px;
+        position: relative;
+        &:after {
+            display: ${props => props.match ? 'block' : 'none'};
+            position: absolute;
+            content: "";
+            bottom: -3px;
+            left: 0;
+            right: 0;
+            width: 20px;
+            margin: 0 auto;
+            height: 2px;
+            background-color: #808080;
+        }
+        &:hover {
+                color: #fab15f;
+        }
+    }
+    // background: ${props => props.match ? "white" : ""};
 `
 
 function CustomLink({ label, to, activeOnlyWhenExact }) {
@@ -48,5 +69,3 @@ function CustomLink({ label, to, activeOnlyWhenExact }) {
     );
 }
 
-
-export default NavigationMenu;

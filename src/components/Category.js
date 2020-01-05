@@ -2,12 +2,7 @@
  import styled from 'styled-components'
  import Slider from 'react-styled-carousel';
  import {
-     BrowserRouter as Router,
      Link,
-     Switch,
-     Route,
-     useRouteMatch,
-     useParams,
  } from "react-router-dom";
 
 
@@ -19,10 +14,11 @@ const imageDomain = 'http://image.tmdb.org/t/p/w342/';
     flex-direction: column;
     flex: 0 1 auto;
     justify-content; center;
+    padding: 0 20px;
 `;
  const CategoryTitle = styled.div`
     font-size: 24px;
-    color: #808080;
+    color: #f78f19;
     padding: 10px 0 20px;
     display: flex;
     justify-content: center;
@@ -44,7 +40,13 @@ const imageDomain = 'http://image.tmdb.org/t/p/w342/';
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+    transition: 0.4s;
     min-height: 200px;
+    box-sizing: border-box;
+    &:hover {
+        // background-size: cover;
+        border: 2px solid #808080;
+    }
  `
 
 function Category({url, title}) {
@@ -64,7 +66,7 @@ function Category({url, title}) {
                 console.log('Loading data failed: ', error);
             });
     },[url])
-    console.log('DATA: ' , data)
+    // console.log('DATA: ' , data)
     const responsive = [
         { breakPoint: 1024, cardsToShow: 7 },
         { breakPoint: 980, cardsToShow: 6 },
@@ -75,19 +77,18 @@ function Category({url, title}) {
         { breakPoint: 120, cardsToShow: 1 },
     ];
     let sliderContent = data && data.map((movie,index) => <Link key={`${movie.title}-${index}`} to={`/title/${movie.id}`}><Image movie={movie}></Image></Link>)
-    let matchedPath = useRouteMatch();
-    console.log('MATCH PATH IN CATEGORY::', matchedPath)
     return (
         <CategoryList>
             <CategoryTitle>{title}</CategoryTitle>
             {data && <Slider
+                key={`slider-${title}`}
                 responsive={responsive}
                 cardsToShow={2}
-                autoSlide={false}
+                autoSlide={title === 'Popular movies'}
                 // dotsWrapper={() => <DotsWrapper />}
                 showArrows={true}
-                showDots={false}
-                infinite={false}
+                showDots={true}
+                infinite={true}
                 hideArrowsOnNoSlides={true}
                 pauseOnMouseOver={true}
             >
@@ -96,12 +97,5 @@ function Category({url, title}) {
         </CategoryList>
     );
 }
-
-function Detail () {
-    let {detailId} = useParams()
-    return <div>{detailId}assadsad</div>;
-}
-
-
 
 export default Category;

@@ -2,7 +2,10 @@ import React from 'react';
 
 function SearchMovies() {
     return (
-        <div>aaaS</div>
+        <div>
+            <input></input>
+            <button></button>
+        </div>
     );
 }
 
